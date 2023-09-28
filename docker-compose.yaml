@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      dockerfile: .docker/Dockerfile
+      context: ./
+    volumes:
+      - ./:/var/app
+      - ~/.composer:/root/.composer
+    working_dir: /var/app
+    restart: unless-stopped
+
+
