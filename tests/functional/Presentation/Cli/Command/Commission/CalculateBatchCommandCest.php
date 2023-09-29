@@ -3,7 +3,6 @@
 namespace Tests\functional\Presentation\Cli\Command\Commission;
 
 
-use Application\Commission\ValueObject\CurrencyRate;
 use Codeception\Example;
 use GuzzleHttp\Psr7\Response;
 use Tests\FunctionalTester;
