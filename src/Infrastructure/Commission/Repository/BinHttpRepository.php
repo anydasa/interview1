@@ -9,17 +9,16 @@ use Psr\Http\Client\ClientInterface;
 
 final readonly class BinHttpRepository implements BinRepository
 {
-    private const BINLIST_HOST = 'https://lookup.binlist.net/';
-
     public function __construct(
         private ClientInterface $httpClient,
+        private string $apiHost,
     )
     {
     }
 
     public function find(int $binNumber): ?Bin
     {
-        $request = new Request('GET', self::BINLIST_HOST.$binNumber);
+        $request = new Request('GET', $this->apiHost.$binNumber);
 
         $response = $this->httpClient->sendRequest($request);
 

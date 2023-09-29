@@ -32,3 +32,12 @@ services:
     class: GuzzleHttp\Client
     arguments:
       - handler: '@GuzzleHttp\HandlerStack'
+
+  Infrastructure\Commission\Repository\BinHttpRepository:
+    arguments:
+      $apiHost: '%env(BINLIST_HOST)%'
+
+  Infrastructure\Commission\Repository\CurrencyRateHttpRepository:
+    arguments:
+      $apiHost: '%env(EXCHANGERATESAPI_HOST)%'
+      $apiKey: '%env(EXCHANGERATESAPI_KEY)%'
