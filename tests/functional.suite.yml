@@ -1,0 +1,13 @@
+actor: FunctionalTester
+modules:
+    enabled:
+        - Asserts
+        - REST:
+              depends: Symfony
+              shortDebugResponse: 300
+        - Symfony:
+              app_path: 'src/Infrastructure'
+              kernel_class: 'Infrastructure\Kernel'
+              environment: 'test'
+              debug: false
+        - \Tests\Helper\Functional

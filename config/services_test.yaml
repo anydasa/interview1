@@ -1,0 +1,5 @@
+
+services:
+  Psr\Http\Client\ClientInterface:
+    class: GuzzleHttp\Client
+    public: true
