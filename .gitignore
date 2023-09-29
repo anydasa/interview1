@@ -10,8 +10,6 @@
 /vendor/
 ###< symfony/framework-bundle ###
 
-!var/transactions.txt
-
 ###> phpunit/phpunit ###
 /phpunit.xml
 .phpunit.result.cache
