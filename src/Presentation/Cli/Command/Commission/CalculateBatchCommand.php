@@ -10,6 +10,7 @@ use Application\Commission\Service\CalculateBatchService;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Output\OutputInterface;
 
 final class CalculateBatchCommand extends Command
@@ -24,30 +25,30 @@ final class CalculateBatchCommand extends Command
         $this
             ->setName('commission:calculate:batch')
             ->setAliases(['comm:calc:batch'])
-            ->setDescription('Calculate commission');
+            ->setDescription('Calculate commission')
+            ->addArgument('file', InputArgument::REQUIRED, 'Path to the file with transactions');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): ?int
     {
+        $filePath = $input->getArgument('file');
+        if (!file_exists($filePath) || !is_readable($filePath)) {
+            $output->writeln("<error>Unable to read file {$filePath}</error>");
+            return Command::FAILURE;
+        }
 
-        $string =
-            '{"bin":"45717360","amount":"100","currency":"EUR"}
-{"bin":"516793","amount":"50.00","currency":"USD"}
-{"bin":"45417360","amount":"10000.00","currency":"JPY"}
-{"bin":"41417360","amount":"130.00","currency":"USD"}
-{"bin":"4745030","amount":"2000.00","currency":"GBP"}';
-
-        $resource = fopen('php://memory', 'r+');
-        fwrite($resource, $string);
-        rewind($resource);
-
-
+        $resource = fopen($filePath, 'r');
+        if (!$resource) {
+            $output->writeln("<error>Error opening file {$filePath}</error>");
+            return Command::FAILURE;
+        }
 
         $commissionList = $this->calculateBatchService->calculateBatch($this->getBatchIterator($resource));
         foreach ($commissionList as $commission) {
             $output->writeln((string) $commission->getMoney()->getAmount());
         }
 
+        fclose($resource);
         return Command::SUCCESS;
     }
 
