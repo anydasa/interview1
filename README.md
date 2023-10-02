@@ -19,9 +19,9 @@ This repository contains a PHP project developed as an interview test task. It's
 
 The directory structure and namespaces (`Application`, `Presentation`, and `Infrastructure`) draw inspiration from the principles of Domain-Driven Design (DDD). However, it's worth noting that this isn't a classic DDD approach. Instead, it's a deliberately simplified version where the `Application` namespace encompasses both application-specific logic and domain logic. This organization provides a clear separation of concerns:
 
-- **Application**: Contains use cases, domain logic, and application-specific logic. It represents the layer closest to the end-users, serving as an intermediary between the domain (or core) logic and the user interface.
+- **Application**: Contains domain logic, and application-specific logic
 
-- **Presentation**: Focuses on the user interface and how data is presented to and accepted from the user. This can include controllers, templates, and view models.
+- **Presentation**: Focuses on the user interface and how data is presented to and accepted from the user. This can include API endpoints, commands etc...
 
 - **Infrastructure**: Deals with concerns external to our application, such as databases, messaging systems, and external services. It serves as a bridge between the application's core logic and any external systems or third-party libraries.
 
