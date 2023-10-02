@@ -5,9 +5,10 @@ include .env
 export
 
 include .make/Utils.mk
+include .make/App.mk
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
-		| sed "s/.*Makefile://g" \
+		| sed "s/.*mk://g" \
 		| sort \
 		| awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
